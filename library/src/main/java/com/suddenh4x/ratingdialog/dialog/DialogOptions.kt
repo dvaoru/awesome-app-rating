@@ -1,6 +1,7 @@
 package com.suddenh4x.ratingdialog.dialog
 
 import android.graphics.drawable.Drawable
+import android.os.Parcelable
 import androidx.annotation.StringRes
 import com.suddenh4x.ratingdialog.R
 import com.suddenh4x.ratingdialog.buttons.ConfirmButton
@@ -10,8 +11,10 @@ import com.suddenh4x.ratingdialog.buttons.RateDialogClickListener
 import com.suddenh4x.ratingdialog.preferences.MailSettings
 import com.suddenh4x.ratingdialog.preferences.RatingThreshold
 import java.io.Serializable
+import kotlinx.android.parcel.Parcelize
 
-internal class DialogOptions : Serializable {
+@Parcelize
+internal class DialogOptions : Parcelable {
 
     @Transient
     var iconDrawable: Drawable? = null
@@ -68,4 +71,11 @@ internal class DialogOptions : Serializable {
     // Google in-app review
     var useGoogleInAppReview = false
     var googleInAppReviewCompleteListener: ((Boolean) -> Unit)? = null
+
+    // Rate in app listener
+    var rateInAppListener: ((Float) -> Unit)? = null
+
+    override fun toString(): String {
+        return "DialogOptions(iconDrawable=$iconDrawable, customTheme=$customTheme, rateLaterButton=$rateLaterButton, rateNeverButton=$rateNeverButton, ratingThreshold=$ratingThreshold, customCondition=$customCondition, customConditionToShowAgain=$customConditionToShowAgain, countAppLaunch=$countAppLaunch, countOfLaterButtonClicksToShowNeverButton=$countOfLaterButtonClicksToShowNeverButton, titleTextId=$titleTextId, messageTextId=$messageTextId, confirmButton=$confirmButton, showOnlyFullStars=$showOnlyFullStars, storeRatingTitleTextId=$storeRatingTitleTextId, storeRatingMessageTextId=$storeRatingMessageTextId, rateNowButton=$rateNowButton, additionalRateNowButtonClickListener=$additionalRateNowButtonClickListener, feedbackTitleTextId=$feedbackTitleTextId, noFeedbackButton=$noFeedbackButton, mailFeedbackMessageTextId=$mailFeedbackMessageTextId, mailFeedbackButton=$mailFeedbackButton, mailSettings=$mailSettings, additionalMailFeedbackButtonClickListener=$additionalMailFeedbackButtonClickListener, useCustomFeedback=$useCustomFeedback, customFeedbackMessageTextId=$customFeedbackMessageTextId, customFeedbackButton=$customFeedbackButton, cancelable=$cancelable, dialogCancelListener=$dialogCancelListener, useGoogleInAppReview=$useGoogleInAppReview, googleInAppReviewCompleteListener=$googleInAppReviewCompleteListener)"
+    }
 }

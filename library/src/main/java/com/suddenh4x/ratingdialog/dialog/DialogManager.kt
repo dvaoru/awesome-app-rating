@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
@@ -48,7 +49,8 @@ internal object DialogManager {
                 RatingLogger.debug("Confirm button clicked.")
                 dialogOptions.confirmButton.confirmButtonClickListener?.onClick(rating)
                     ?: RatingLogger.info("Confirm button has no click listener.")
-
+                        Log.d("MyLog", "rating = ${rating}")
+                        dialogOptions.rateInAppListener?.invoke(rating)
                 when {
                     rating >= dialogOptions.ratingThreshold.toFloat() -> {
                         RatingLogger.info("Above threshold. Showing rating store dialog.")
@@ -98,6 +100,7 @@ internal object DialogManager {
         dialogType: DialogType,
         activity: FragmentActivity
     ) {
+        Log.d("MyLog", "showRatingDialog")
         RateDialogFragment.newInstance(dialogOptions, dialogType)
             .show(activity.supportFragmentManager, TAG)
     }

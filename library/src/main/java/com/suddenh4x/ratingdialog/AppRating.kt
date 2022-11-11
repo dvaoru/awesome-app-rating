@@ -111,6 +111,8 @@ object AppRating {
                 dialogOptions.confirmButton.confirmButtonClickListener = confirmButtonClickListener
             }
 
+
+
         fun setShowOnlyFullStars(showOnlyFullStars: Boolean) = apply {
             dialogOptions.showOnlyFullStars = showOnlyFullStars
         }
@@ -287,6 +289,15 @@ object AppRating {
         fun setGoogleInAppReviewCompleteListener(googleInAppReviewCompleteListener: (Boolean) -> Unit) =
             apply {
                 dialogOptions.googleInAppReviewCompleteListener = googleInAppReviewCompleteListener
+            }
+
+        /**
+         * This listener about stars in rate
+         */
+
+        fun setRateInAppListener(rateInAppListener: (Float) -> Unit) =
+            apply {
+                dialogOptions.rateInAppListener = rateInAppListener
             }
 
         /**

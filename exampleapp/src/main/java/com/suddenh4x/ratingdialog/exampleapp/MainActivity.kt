@@ -45,7 +45,11 @@ class MainActivity : AppCompatActivity() {
     fun onDefaultExampleButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
         AppRating.Builder(this)
             .setDebug(true)
+            .setRateInAppListener {
+                Toast.makeText(this, "Rate = ${it.toString()}", Toast.LENGTH_SHORT).show()
+            }
             .showIfMeetsConditions()
+
     }
 
     fun onCustomIconButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {

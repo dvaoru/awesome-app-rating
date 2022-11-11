@@ -3,6 +3,7 @@ package com.suddenh4x.ratingdialog.dialog
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
@@ -21,9 +22,10 @@ internal class RateDialogFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         super.onCreateDialog(savedInstanceState)
-        dialogOptions = arguments?.getSerializable(ARG_DIALOG_OPTIONS) as DialogOptions
-        dialogType = arguments?.getSerializable(ARG_DIALOG_TYPE) as DialogType? ?: DialogType.RATING_OVERVIEW
+        dialogOptions = arguments?.getParcelable<DialogOptions>(ARG_DIALOG_OPTIONS) as DialogOptions
+        dialogType = arguments?.getParcelable<DialogType>(ARG_DIALOG_TYPE) as DialogType? ?: DialogType.RATING_OVERVIEW
         isCancelable = dialogOptions.cancelable
+        Log.d("MyLog", "dialogOptions = ${dialogOptions.toString()}")
 
         return when (dialogType) {
             DialogType.RATING_OVERVIEW -> DialogManager.createRatingOverviewDialog(
@@ -67,16 +69,20 @@ internal class RateDialogFragment : DialogFragment() {
         fun newInstance(dialogOptions: DialogOptions): RateDialogFragment {
             val rateDialogFragment = RateDialogFragment()
             rateDialogFragment.arguments = Bundle().apply {
-                putSerializable(ARG_DIALOG_OPTIONS, dialogOptions)
+                putParcelable(ARG_DIALOG_OPTIONS, dialogOptions)
+                //putSerializable(ARG_DIALOG_OPTIONS, dialogOptions)
             }
             return rateDialogFragment
         }
 
         fun newInstance(dialogOptions: DialogOptions, dialogType: DialogType): RateDialogFragment {
+            Log.d("MyLog", "newInstance")
             val rateDialogFragment = RateDialogFragment()
             rateDialogFragment.arguments = Bundle().apply {
-                putSerializable(ARG_DIALOG_OPTIONS, dialogOptions)
-                putSerializable(ARG_DIALOG_TYPE, dialogType)
+                putParcelable(ARG_DIALOG_OPTIONS, dialogOptions)
+                putParcelable(ARG_DIALOG_TYPE, dialogType)
+                //putSerializable(ARG_DIALOG_OPTIONS, dialogOptions)
+                //putSerializable(ARG_DIALOG_TYPE, dialogType)
             }
             return rateDialogFragment
         }
